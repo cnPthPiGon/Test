@@ -1,0 +1,61 @@
+--big fire f3x
+local function applyDecorationToPart(part)
+			local argsCreate = {
+				[1] = "CreateDecorations",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire"
+					}
+				}
+			}
+
+			local argsSync = {
+				[1] = "SyncDecorate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire",
+						["Size"] = 20
+					}
+				}
+			}
+
+			local buildingTools = nil
+			local player = game:GetService("Players").LocalPlayer
+
+			-- Search for the tool in Character and Backpack
+			for _, item in pairs(player.Character:GetChildren()) do
+				if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+					buildingTools = item
+					break
+				end
+			end
+
+			if not buildingTools then
+				for _, item in pairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						buildingTools = item
+						break
+					end
+				end
+			end
+
+			if buildingTools then
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsCreate))
+				buildingTools.SyncAPI.ServerEndpoint:InvokeServer(unpack(argsSync))
+			elseif not warned then
+				warn("Building tool not found")
+				warned = true
+			end
+		end
+
+		local function applyDecorationToAllParts(workspaceObject)
+			for _, obj in pairs(workspaceObject:GetDescendants()) do
+				if obj:IsA("Part") or obj:IsA("MeshPart") then
+					applyDecorationToPart(obj)
+				end
+			end
+		end
+
+		applyDecorationToAllParts(workspace)
