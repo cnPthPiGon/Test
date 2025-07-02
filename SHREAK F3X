@@ -1,0 +1,747 @@
+--SHREK F3X
+local player = game.Players.LocalPlayer
+	local char = player.Character
+	local tool
+	for i,v in player:GetDescendants() do
+		if v.Name == "SyncAPI" then
+			tool = v.Parent
+		end
+	end
+	for i,v in game.ReplicatedStorage:GetDescendants() do
+		if v.Name == "SyncAPI" then
+			tool = v.Parent
+		end
+	end
+	--craaa
+	remote = tool.SyncAPI.ServerEndpoint
+	function _(args)
+		remote:InvokeServer(unpack(args))
+	end
+	function SetCollision(part,boolean)
+		local args = {
+			[1] = "SyncCollision",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CanCollide"] = boolean
+				}
+			}
+		}
+		_(args)
+	end
+	function SetAnchor(boolean,part)
+		local args = {
+			[1] = "SyncAnchor",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Anchored"] = boolean
+				}
+			}
+		}
+		_(args)
+	end
+	function CreatePart(cf,parent)
+		local args = {
+			[1] = "CreatePart",
+			[2] = "Normal",
+			[3] = cf,
+			[4] = parent
+		}
+		_(args)
+	end
+	function DestroyPart(part)
+		local args = {
+			[1] = "Remove",
+			[2] = {
+				[1] = part
+			}
+		}
+		_(args)
+	end
+	function MovePart(part,cf)
+		local args = {
+			[1] = "SyncMove",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CFrame"] = cf
+				}
+			}
+		}
+		_(args)
+	end
+	function Resize(part,size,cf)
+		local args = {
+			[1] = "SyncResize",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CFrame"] = cf,
+					["Size"] = size
+				}
+			}
+		}
+		_(args)
+	end
+	function AddMesh(part)
+		local args = {
+			[1] = "CreateMeshes",
+			[2] = {
+				[1] = {
+					["Part"] = part
+				}
+			}
+		}
+		_(args)
+	end
+
+	function SetMesh(part,meshid)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["MeshId"] = "rbxassetid://"..meshid
+				}
+			}
+		}
+		_(args)
+	end
+	function SetTexture(part, texid)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["TextureId"] = "rbxassetid://"..texid
+				}
+			}
+		}
+		_(args)
+	end
+	function SetName(part, stringg)
+		local args = {
+			[1] = "SetName",
+			[2] = {
+				[1] = part
+			},
+			[3] = stringg
+		}
+
+		_(args)
+	end
+	function MeshResize(part,size)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Scale"] = size
+				}
+			}
+		}
+		_(args)
+	end
+	function Weld(part1, part2,lead)
+		local args = {
+			[1] = "CreateWelds",
+			[2] = {
+				[1] = part1,
+				[2] = part2
+			},
+			[3] = lead
+		}
+		_(args)
+
+	end
+	function SetLocked(part,boolean)
+		local args = {
+			[1] = "SetLocked",
+			[2] = {
+				[1] = part
+			},
+			[3] = boolean
+		}
+		_(args)
+	end
+	function SetTrans(part,int)
+		local args = {
+			[1] = "SyncMaterial",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Transparency"] = int
+				}
+			}
+		}
+		_(args)
+	end
+	function CreateSpotlight(part)
+		local args = {
+			[1] = "CreateLights",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["LightType"] = "SpotLight"
+				}
+			}
+		}
+		_(args)
+	end
+	function SyncLighting(part,brightness)
+		local args = {
+			[1] = "SyncLighting",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["LightType"] = "SpotLight",
+					["Brightness"] = brightness
+				}
+			}
+		}
+		_(args)
+	end
+	function Color(part,color)
+		local args = {
+			[1] = "SyncColor",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Color"] = color --[[Color3]],
+					["UnionColoring"] = false
+				}
+			}
+		}
+		_(args)
+	end
+	function SpawnDecal(part,side)
+		local args = {
+			[1] = "CreateTextures",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Face"] = side,
+					["TextureType"] = "Decal"
+				}
+			}
+		}
+
+		_(args)
+	end
+	function AddDecal(part,asset,side)
+		local args = {
+			[1] = "SyncTexture",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Face"] = side,
+					["TextureType"] = "Decal",
+					["Texture"] = "rbxassetid://".. asset
+				}
+			}
+		}
+		_(args)
+	end
+
+	function Sky(id)
+		e = char.HumanoidRootPart.CFrame.x
+		f = char.HumanoidRootPart.CFrame.y
+		g = char.HumanoidRootPart.CFrame.z
+		CreatePart(CFrame.new(math.floor(e),math.floor(f),math.floor(g)) + Vector3.new(0,6,0),workspace)
+		for i,v in game.Workspace:GetDescendants() do
+			if v:IsA("BasePart") and v.CFrame.x == math.floor(e) and v.CFrame.z == math.floor(g) then
+				--spawn(function()
+				SetName(v,"Sky")
+				AddMesh(v)
+				--end)
+				--spawn(function()
+				SetMesh(v,"111891702759441")
+				SetTexture(v,id)
+				--end)
+				MeshResize(v,Vector3.new(4000,4000,4000))
+				SetLocked(v,true)
+			end
+		end
+	end
+	Sky("107003562722788")
+
+	-----------------------------------
+
+	local player = game.Players.LocalPlayer
+	local char = player.Character
+	local tool
+	for i,v in player:GetDescendants() do
+		if v.Name == "SyncAPI" then
+			tool = v.Parent
+		end
+	end
+	for i,v in game.ReplicatedStorage:GetDescendants() do
+		if v.Name == "SyncAPI" then
+			tool = v.Parent
+		end
+	end
+	--craaa
+	remote = tool.SyncAPI.ServerEndpoint
+	function _(args)
+		remote:InvokeServer(unpack(args))
+	end
+	function SetCollision(part,boolean)
+		local args = {
+			[1] = "SyncCollision",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CanCollide"] = boolean
+				}
+			}
+		}
+		_(args)
+	end
+	function SetAnchor(boolean,part)
+		local args = {
+			[1] = "SyncAnchor",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Anchored"] = boolean
+				}
+			}
+		}
+		_(args)
+	end
+	function CreatePart(cf,parent)
+		local args = {
+			[1] = "CreatePart",
+			[2] = "Normal",
+			[3] = cf,
+			[4] = parent
+		}
+		_(args)
+	end
+	function DestroyPart(part)
+		local args = {
+			[1] = "Remove",
+			[2] = {
+				[1] = part
+			}
+		}
+		_(args)
+	end
+	function MovePart(part,cf)
+		local args = {
+			[1] = "SyncMove",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CFrame"] = cf
+				}
+			}
+		}
+		_(args)
+	end
+	function Resize(part,size,cf)
+		local args = {
+			[1] = "SyncResize",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["CFrame"] = cf,
+					["Size"] = size
+				}
+			}
+		}
+		_(args)
+	end
+	function AddMesh(part)
+		local args = {
+			[1] = "CreateMeshes",
+			[2] = {
+				[1] = {
+					["Part"] = part
+				}
+			}
+		}
+		_(args)
+	end
+
+	function SetMesh(part,meshid)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["MeshId"] = "rbxassetid://"..meshid
+				}
+			}
+		}
+		_(args)
+	end
+	function SetTexture(part, texid)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["TextureId"] = "rbxassetid://"..texid
+				}
+			}
+		}
+		_(args)
+	end
+	function SetName(part, stringg)
+		local args = {
+			[1] = "SetName",
+			[2] = {
+				[1] = part
+			},
+			[3] = stringg
+		}
+
+		_(args)
+	end
+	function MeshResize(part,size)
+		local args = {
+			[1] = "SyncMesh",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Scale"] = size
+				}
+			}
+		}
+		_(args)
+	end
+	function Weld(part1, part2,lead)
+		local args = {
+			[1] = "CreateWelds",
+			[2] = {
+				[1] = part1,
+				[2] = part2
+			},
+			[3] = lead
+		}
+		_(args)
+
+	end
+	function SetLocked(part,boolean)
+		local args = {
+			[1] = "SetLocked",
+			[2] = {
+				[1] = part
+			},
+			[3] = boolean
+		}
+		_(args)
+	end
+	function SetTrans(part,int)
+		local args = {
+			[1] = "SyncMaterial",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Transparency"] = int
+				}
+			}
+		}
+		_(args)
+	end
+	function CreateSpotlight(part)
+		local args = {
+			[1] = "CreateLights",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["LightType"] = "SpotLight"
+				}
+			}
+		}
+		_(args)
+	end
+	function SyncLighting(part,brightness)
+		local args = {
+			[1] = "SyncLighting",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["LightType"] = "SpotLight",
+					["Brightness"] = brightness
+				}
+			}
+		}
+		_(args)
+	end
+	function Color(part,color)
+		local args = {
+			[1] = "SyncColor",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Color"] = color --[[Color3]],
+					["UnionColoring"] = false
+				}
+			}
+		}
+		_(args)
+	end
+	function SpawnDecal(part,side)
+		local args = {
+			[1] = "CreateTextures",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Face"] = side,
+					["TextureType"] = "Decal"
+				}
+			}
+		}
+
+		_(args)
+	end
+	function AddDecal(part,asset,side)
+		local args = {
+			[1] = "SyncTexture",
+			[2] = {
+				[1] = {
+					["Part"] = part,
+					["Face"] = side,
+					["TextureType"] = "Decal",
+					["Texture"] = "rbxassetid://".. asset
+				}
+			}
+		}
+		_(args)
+	end
+
+	function spam(id)
+		for i,v in game.workspace:GetDescendants() do
+			if v:IsA("BasePart") then
+				spawn(function()
+					SetLocked(v,false)
+					SpawnDecal(v,Enum.NormalId.Front)
+					AddDecal(v,id,Enum.NormalId.Front)
+
+					SpawnDecal(v,Enum.NormalId.Back)
+					AddDecal(v,id,Enum.NormalId.Back)
+
+					SpawnDecal(v,Enum.NormalId.Right)
+					AddDecal(v,id,Enum.NormalId.Right)
+
+					SpawnDecal(v,Enum.NormalId.Left)
+					AddDecal(v,id,Enum.NormalId.Left)
+
+					SpawnDecal(v,Enum.NormalId.Bottom)
+					AddDecal(v,id,Enum.NormalId.Bottom)
+
+					SpawnDecal(v,Enum.NormalId.Top)
+					AddDecal(v,id,Enum.NormalId.Top)
+				end)
+			end
+		end 
+	end
+	spam("107003562722788")
+
+	--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- DO NOT DELETE THIS LEAVE MY CREDIT
+
+-- Rain Toad Script By ItsKittyyyGD 
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local tool
+
+for i, v in player:GetDescendants() do
+    if v.Name == "SyncAPI" then
+        tool = v.Parent
+    end
+end
+
+for i, v in game.ReplicatedStorage:GetDescendants() do
+    if v.Name == "SyncAPI" then
+        tool = v.Parent
+    end
+end
+
+local remote = tool.SyncAPI.ServerEndpoint
+
+function _(args)
+    remote:InvokeServer(unpack(args))
+end
+
+function SetCollision(part, boolean)
+    local args = {
+        [1] = "SyncCollision",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["CanCollide"] = boolean
+            }
+        }
+    }
+    _(args)
+end
+
+function SetAnchor(boolean, part)
+    local args = {
+        [1] = "SyncAnchor",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["Anchored"] = boolean
+            }
+        }
+    }
+    _(args)
+end
+
+function CreatePart(cf)
+    local args = {
+        [1] = "CreatePart",
+        [2] = "Normal",
+        [3] = cf,
+        [4] = workspace
+    }
+    _(args)
+end
+
+function Resize(part, size, cf)
+    local args = {
+        [1] = "SyncResize",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["CFrame"] = cf,
+                ["Size"] = size
+            }
+        }
+    }
+    _(args)
+end
+
+function AddMesh(part)
+    local args = {
+        [1] = "CreateMeshes",
+        [2] = {
+            [1] = {
+                ["Part"] = part
+            }
+        }
+    }
+    _(args)
+end
+
+function SetMesh(part, meshid)
+    local args = {
+        [1] = "SyncMesh",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["MeshId"] = "rbxassetid://" .. meshid
+            }
+        }
+    }
+    _(args)
+end
+
+function SetTexture(part, texid)
+    local args = {
+        [1] = "SyncMesh",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["TextureId"] = "rbxassetid://" .. texid
+            }
+        }
+    }
+    _(args)
+end
+
+function MeshResize(part, size)
+    local args = {
+        [1] = "SyncMesh",
+        [2] = {
+            [1] = {
+                ["Part"] = part,
+                ["Scale"] = size
+            }
+        }
+    }
+    _(args)
+end
+
+function SetName(part, stringg)
+    local args = {
+        [1] = "SetName",
+        [2] = {
+            [1] = workspace.Part
+        },
+        [3] = stringg
+    }
+    _(args)
+end
+
+function Sky(id)
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    local cf = hrp.CFrame
+    CreatePart(CFrame.new(cf.Position + Vector3.new(0, 6, 0)))
+    for _, v in workspace:GetDescendants() do
+        if v:IsA("BasePart") and v.CFrame.Position == cf.Position + Vector3.new(0, 6, 0) then
+            SetAnchor(true, v)
+            AddMesh(v)
+            SetMesh(v, "14832966960")
+            SetTexture(v, id)
+            MeshResize(v, Vector3.new(0, 0, 0))
+        end
+    end
+end
+
+local function createRainToads()
+    while true do
+        wait(0.01) -- Here they change the appearance time of the Toads or other meshes
+        if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0 then
+            local hrpcf = player.Character.HumanoidRootPart.CFrame
+            local x = hrpcf.x
+            local z = hrpcf.z
+            local randint = math.random(-200, 200)
+            local randint2 = math.random(-200, 200)
+            local xloc = randint + x
+            local zloc = randint2 + z
+            local cf = player.Character.HumanoidRootPart.CFrame.y + 0
+
+            spawn(function()
+                local newToad = CreatePart(CFrame.new(math.floor(xloc), math.random(cf, cf + 40), math.floor(zloc)))
+                for i, v in game.Workspace:GetDescendants() do
+                    if v.Name == "Part" and v.Parent == workspace and v.CFrame.x == math.floor(xloc) and v.CFrame.z == math.floor(zloc) then
+                        SetName(v, "shrek daddy owo") -- Here the name of the toad changes
+                        SetAnchor(true, v)
+                        AddMesh(v)
+                        Resize(v, Vector3.new(10, 18, 3), v.CFrame)
+                        MeshResize(v, Vector3.new(1, 1, 1))
+                        SetMesh(v, "4532642502") -- Here put it A custom mesh
+                        SetTexture(v, "4532642578") -- X2
+                        SetCollision(v, true)
+                        v.Orientation = Vector3.new(0, 0, 0)
+
+                        v.CFrame = v.CFrame + Vector3.new(0, 0, 0)
+
+                        local sound = Instance.new("Sound", v)
+                        sound.SoundId = "rbxassetid://153752123" -- Here the noise or another sound To the toads or other things It works when they appear 
+                        sound.Volume = 0
+                        sound.PlayOnRemove = true
+                        sound:Destroy()
+                    end
+                end
+            end)
+        else
+            wait(1)
+        end
+    end
+end
+
+coroutine.wrap(createRainToads)()
+
+Sky("98314626230473") -- Here they change the skybox id 
+
+-- Delete this if you are going to Use it in another script 
